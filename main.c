@@ -15,14 +15,15 @@ int main() {
 
     Matrix* inputs = Matrix__create(10, 1);
     Matrix__randomize(inputs, 0, 1);
-
+ 
     // NeuralNetwork__print(nn);
     NeuralNetwork__evaluate(inputs, nn);
     NeuralNetwork__print(nn);
 
     NeuralNetwork__destroy(nn);
 
-    DataSet* dataSet = DataSet__create(1, "train-images-idx3-ubyte", "train-labels-idx1-ubyte");
-    // DataSet__destroy(dataSet);
+    DataSet* dataSet = DataSet__create(10, "train-images-idx3-ubyte", "train-labels-idx1-ubyte");
+    DataSet__destroy(dataSet);
+
     return 0;
 }

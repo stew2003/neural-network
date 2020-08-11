@@ -13,11 +13,11 @@ Matrix* Matrix__create(int rows, int cols) {
     matrix->cols = cols;
 
     // allocate memory for the rows
-    matrix->values = malloc(rows * sizeof(float*));
+    matrix->values = malloc(rows * sizeof(double*));
 
     //allocate memory for the columns and initialize as 0s (calloc)
     for (int i = 0; i < rows; i++) {
-        matrix->values[i] = calloc(cols, sizeof(float));
+        matrix->values[i] = calloc(cols, sizeof(double));
     }
 
     return matrix;
@@ -25,6 +25,7 @@ Matrix* Matrix__create(int rows, int cols) {
 
 // deallocate memory and destroy a martix
 void Matrix__destroy(Matrix* matrix) {
+
     // free all of the rows (delete the columns)
     for (int i = 0; i < matrix->rows; i++) {
         free(matrix->values[i]);
@@ -38,12 +39,12 @@ void Matrix__destroy(Matrix* matrix) {
     return;
 };
 
-// randomizeall of the values in a matrix between a min and a max
-void Matrix__randomize(Matrix* matrix, float min, float max) {
+// randomiz eall of the values in a matrix between a min and a max
+void Matrix__randomize(Matrix* matrix, double min, double max) {
     // loop through every item in the matrix
     for (int i = 0; i < matrix->rows; i++) {
         for (int j = 0; j < matrix->cols; j++) {
-            matrix->values[i][j] = ((float) rand()/RAND_MAX) * (max-min) + min;
+            matrix->values[i][j] = ((double) rand()/RAND_MAX) * (max-min) + min;
         }
     }
 
@@ -51,7 +52,7 @@ void Matrix__randomize(Matrix* matrix, float min, float max) {
 };
 
 // find the value of a matrix at a position
-float Matrix__at(Matrix* matrix, int rowPos, int colPos) {
+double Matrix__at(Matrix* matrix, int rowPos, int colPos) {
     // check if the positions are within the bounds of the matrix
     if (rowPos < matrix->rows && colPos < matrix->cols) {
         return matrix->values[rowPos][colPos];
@@ -61,11 +62,12 @@ float Matrix__at(Matrix* matrix, int rowPos, int colPos) {
 }
 
 // set the value of a matrix at a position
-void Matrix__set(Matrix* matrix, int rowPos, int colPos, float value) {
+void Matrix__set(Matrix* matrix, int rowPos, int colPos, double value) {
     // check if the positions are within the bounds of the matrix
     if (rowPos < matrix->rows && colPos < matrix->cols) {
        matrix->values[rowPos][colPos] = value;
     } else {
+        printf("Rows: %d; Accessed Row: %d; Cols: %d; Accessed Cols: %d;", matrix->rows, rowPos, matrix->cols, colPos);
         perror("Cannot set value at those positions. Positions out of bounds"), exit(1);
     }
 }
@@ -116,7 +118,7 @@ Matrix* Matrix__add(Matrix* matrix1, Matrix* matrix2) {
 }
 
 // multiply every item in a matrix by a scalar
-Matrix* Matrix__scale(Matrix* matrix, float scalar) {
+Matrix* Matrix__scale(Matrix* matrix, double scalar) {
     // initialize a new matrix
     Matrix* scaled = Matrix__create(matrix->rows, matrix->cols);
 
@@ -133,12 +135,11 @@ Matrix* Matrix__scale(Matrix* matrix, float scalar) {
 }
 
 // alter every item in a matrix by a function
-Matrix* Matrix__alter(Matrix* matrix, float (*f)(float)) {
+Matrix* Matrix__alter(Matrix* matrix, double (*f)(double)) {
     // initialize a new matrix
     Matrix* altered = Matrix__create(matrix->rows, matrix->cols);
 
     // loop through every item in the new matrix
-
     for (int i = 0; i < altered->rows; i++) {
         for (int j = 0; j < altered->cols; j++) {
             // set the new value to be the sum of the value of the two matricies
@@ -152,9 +153,9 @@ Matrix* Matrix__alter(Matrix* matrix, float (*f)(float)) {
 
 //neatly print out a matrix
 void Matrix__print(Matrix* matrix) {
-    for (int i = 0; i < matrix->rows; i++) {
-        for (int j = 0; j < matrix->cols; j++) {
-            printf("%f ", Matrix__at(matrix, i, j));
+    for (int colPos = 0; colPos < matrix->cols; colPos++) {
+        for (int rowPos = 0; rowPos < matrix->rows; rowPos++) {
+            printf("%f ", Matrix__at(matrix, rowPos, colPos));
         }
         printf("\n");
     }

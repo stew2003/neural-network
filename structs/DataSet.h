@@ -3,16 +3,18 @@
 
 #include "Matrix.h"
 
-#define SIZE_OF_INPUTS 784 // 28*28 images
 #define NUM_OUTPUTS 10 // 0-9
+
+int endianSwap(int num);
 
 typedef struct DataSet {
     int size;
+    int imageSize;
     Matrix** inputs;
-    Matrix** expectedOutputs;
+    Matrix** outputs;
 } DataSet;
 
-DataSet* DataSet__create(int size, char* inputFilename, char* labelFilename);
+DataSet* DataSet__create(int size, char* imagesFilename, char* labelsFilename);
 
 void DataSet__destroy(DataSet* dataSet);
 

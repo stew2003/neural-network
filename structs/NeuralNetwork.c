@@ -58,7 +58,7 @@ void NeuralNetwork__destroy(NeuralNetwork* neuralNetwork) {
 }
 
 // randomize all the values in a neural network
-void NeuralNetwork__randomize(NeuralNetwork* neuralNetwork, float min, float max) {
+void NeuralNetwork__randomize(NeuralNetwork* neuralNetwork, double min, double max) {
     // loop through all of the matricies
     for (int i = 0; i < (neuralNetwork->layers - 1); i++) {
         Matrix__randomize(neuralNetwork->weights[i], min, max);

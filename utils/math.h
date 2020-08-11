@@ -2,9 +2,9 @@
 #define _NEURAL_NETWORK_MATH_
 
 // sigmoid squishification function
-float sigmoid(float x);
+double sigmoid(double x);
 
 // the derivative of the sigmoid function
-float sigmoidPrime(float x);
+double sigmoidPrime(double x);
 
 #endif

@@ -18,7 +18,7 @@ NeuralNetwork* NeuralNetwork__create(int layers, int* params);
 void NeuralNetwork__destroy(NeuralNetwork* neuralNetwork);
 
 // randomize all of the values of a neural network
-void NeuralNetwork__randomize(NeuralNetwork* neuralNetwork, float min, float max);
+void NeuralNetwork__randomize(NeuralNetwork* neuralNetwork, double min, double max);
 
 // print out a neural network neatly
 void NeuralNetwork__print(NeuralNetwork* neuralNetwork);
